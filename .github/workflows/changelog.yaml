@@ -1,0 +1,14 @@
+name: "Changelog"
+
+on:
+  push:
+    branches:
+      - "release/**"
+    paths-ignore:
+      - "**.md"
+  workflow_dispatch:
+
+jobs:
+  call-workflow:
+    uses: jivygroup/om2-github-workflows/.github/workflows/changelog.yaml@main
+    secrets: inherit

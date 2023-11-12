@@ -1,0 +1,11 @@
+name: "Release"
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  call-workflow:
+    uses: jivygroup/om2-github-workflows/.github/workflows/release.yaml@main
+    secrets: inherit
