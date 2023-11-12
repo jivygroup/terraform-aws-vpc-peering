@@ -18,6 +18,9 @@ This module can be used to create one-way peering connection requests which will
 This will only require defining the requester. The accpeter will need to accept and configure the required
 security posture on the other end.
 
+## Contributing
+
+Please feel free to fork this repo and create a PR.
 
 
 <!-- BEGIN_TF_DOCS -->
