@@ -1,16 +1,16 @@
 data "aws_vpc" "accepter" {
-  count = alltrue([var.create, var.accepter_owner_id == ""])
+  count = alltrue([var.create, var.accepter_owner_id == ""]) ? 1 : 0
   id    = var.accepter_vpc_id
 }
 
 data "aws_route_tables" "accepter" {
-  count  = alltrue([var.create, var.accepter_owner_id == ""])
+  count  = alltrue([var.create, var.accepter_owner_id == ""]) ? 1 : 0
   vpc_id = data.aws_vpc.accepter[0].id
   tags   = var.accepter_route_table_tags
 }
 
 data "aws_security_group" "accepter" {
-  count  = alltrue([var.create, var.accepter_owner_id == ""])
+  count  = alltrue([var.create, var.accepter_owner_id == ""]) ? 1 : 0
   vpc_id = data.aws_vpc.accepter[0].id
   filter {
     name   = "group-name"
@@ -51,7 +51,7 @@ resource "aws_route" "accepter" {
 }
 
 resource "aws_security_group_rule" "accepter" {
-  count             = alltrue([var.create, var.accepter_owner_id == ""])
+  count             = alltrue([var.create, var.accepter_owner_id == ""]) ? 1 : 0
   type              = "ingress"
   from_port         = 0
   to_port           = 0
