@@ -1,18 +1,17 @@
-# Version: 0.5.0
+# Version: 0.2.0
 
 
 #### Changes
 
-* [#4](https://github.com/jivygroup/om2-terraform-template/pull/4): Adds tf version check script
-* [#5](https://github.com/jivygroup/om2-terraform-template/pull/5): Changes the testing template
+* [#3](https://github.com/jivygroup/terraform-aws-vpc-peering/pull/3): Prepares the module for publication
 
 
-# Version: 0.4.0
+# Version: 0.1.0
 
 
 #### Changes
 
-* [#2](https://github.com/jivygroup/om2-terraform-template/pull/2): Migrate to new workflow
+* [#1](https://github.com/jivygroup/terraform-aws-vpc-peering/pull/1): Initial work migrating from mp-terraform
 
 
 # Version: 0.3.0
