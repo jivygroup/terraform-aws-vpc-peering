@@ -5,6 +5,21 @@ VPCs may be in different accounts and/or different regions.
 The requester should be configured and run first, followed by the accepter.
 If both requester and accepter are in the same account then the connection can be auto-accepted.
 
+## Usage
+
+In order to use this in a single account it is enough to configure a single provider.
+In this auto_accept can be set to true and the accepter will automatically accept the peering connection.
+
+In order to configure a peering connection between separate accounts it is recommended to define the module twice, 
+once for the requester and once for the accepter.
+Each definition should be assigend a provider with the relvant permissions in the relevant accounts
+
+This module can be used to create one-way peering connection requests which will only be accepted later
+This will only require defining the requester. The accpeter will need to accept and configure the required
+security posture on the other end.
+
+
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
