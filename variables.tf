@@ -1,13 +1,37 @@
-variable "accepter_region" {
-  type        = string
-  description = "Region for accepter's VPC"
-  default     = ""
-}
-
 variable "accepter_allow_remote_vpc_dns_resolution" {
   type        = bool
   default     = true
   description = "Allow accepter VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the requester VPC"
+}
+
+variable "accepter_cidr_block" {
+  type        = string
+  description = "cidr block for accepter's VPC"
+  default     = ""
+}
+
+variable "accepter_enabled" {
+  description = "Flag to enable/disable the accepter side of the peering connection"
+  type        = bool
+  default     = true
+}
+
+variable "accepter_owner_id" {
+  type        = string
+  description = "accepter account ID"
+  default     = ""
+}
+
+variable "accepter_region" {
+  type        = string
+  description = "Accepter AWS region"
+  default     = ""
+}
+
+variable "accepter_route_table_tags" {
+  type        = map(string)
+  description = "Only add peer routes to accepter VPC route tables matching these tags"
+  default     = {}
 }
 
 variable "accepter_security_group_name" {
@@ -19,34 +43,40 @@ variable "accepter_security_group_name" {
   DOC
 }
 
-variable "accepter_cidr_block" {
-  type        = string
-  description = "cidr block for accepter's VPC"
-  default     = ""
-}
-
-variable "accepter_route_table_tags" {
+variable "accepter_subnet_tags" {
   type        = map(string)
-  description = "Only add peer routes to accepter VPC route tables matching these tags"
+  description = "Only add peer routes to accepter VPC route tables of subnets matching these tags"
   default     = {}
-}
-
-variable "accepter_owner_id" {
-  type        = string
-  description = "accepter account ID"
-  default     = ""
 }
 
 variable "accepter_vpc_id" {
   type        = string
-  description = "accepter VPC ID"
+  description = "Accepter VPC ID filter"
   default     = ""
+}
+
+variable "accepter_vpc_tags" {
+  type        = map(string)
+  description = "Accepter VPC Tags filter"
+  default     = {}
 }
 
 variable "auto_accept" {
   type        = bool
   default     = true
-  description = "Automatically accept the peering (both VPCs need to be in the same AWS account)"
+  description = "Automatically accept the peering"
+}
+
+variable "aws_route_create_timeout" {
+  type        = string
+  default     = "5m"
+  description = "Time to wait for AWS route creation specifed as a Go Duration, e.g. `2m`"
+}
+
+variable "aws_route_delete_timeout" {
+  type        = string
+  default     = "5m"
+  description = "Time to wait for AWS route deletion specifed as a Go Duration, e.g. `5m`"
 }
 
 variable "create" {
@@ -67,7 +97,7 @@ variable "delete_timeout" {
   default     = "5m"
 }
 
-variable "manage_local_security_group_rule" {
+variable "open_local_security_group_rule" {
   type        = bool
   description = "Define whether or not to inject the required security group rule into the local Phoenix security group. If not then this rule should be added in the calling module directly to the Phoenix SG"
 }
@@ -77,26 +107,33 @@ variable "name" {
   description = "Name of the peering connection"
 }
 
-variable "requested_vpc_peering_connection_id" {
+variable "peering_connection_id_to_accept" {
   type        = string
-  description = "The ID of the requested VPC peering connection which is pending accceptance"
+  description = "ID of the VPC Peering connection to accept. Only in-use for accepter-only workspaces."
+  default     = null
+}
+
+variable "requester_allow_remote_vpc_dns_resolution" {
+  type        = bool
+  default     = true
+  description = "Allow requester VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the accepter VPC"
+}
+
+variable "requester_cidr_block" {
+  description = "The CIDR block of the requester that will be used in accepter"
   default     = ""
 }
 
-variable "requester_vpc_id" {
-  description = "requester VPC ID"
-  default     = ""
+variable "requester_enabled" {
+  type        = bool
+  description = "Whether or not to accept peering connection requested from remote account"
+  default     = false
 }
 
 variable "requester_route_table_tags" {
   type        = map(string)
   description = "Only add peer routes to requester VPC route tables matching these tags"
   default     = {}
-}
-
-variable "requester_cidr_block" {
-  description = "The CIDR block of the requester that will be used in accepter"
-  default     = ""
 }
 
 variable "requester_security_group_name" {
@@ -108,22 +145,27 @@ variable "requester_security_group_name" {
   DOC
 }
 
-variable "peering_accepter" {
+variable "requester_subnet_tags" {
+  type        = map(string)
+  description = "Only add peer routes to requester VPC route tables of subnets matching these tags"
+  default     = {}
+}
+
+variable "requester_vpc_id" {
+  description = "requester VPC ID"
+  default     = ""
+}
+
+variable "requester_vpc_tags" {
+  type        = map(string)
+  description = "Requester VPC Tags filter"
+  default     = {}
+}
+
+variable "skip_metadata_api_check" {
   type        = bool
-  description = "Whether or not to accept peering connection requested from remote account"
   default     = false
-}
-
-variable "peering_connection_id" {
-  type        = string
-  description = "ID of the VPC Peering connection to accept. Only in-use for peering_accepters."
-  default     = null
-}
-
-variable "requester_allow_remote_vpc_dns_resolution" {
-  type        = bool
-  default     = true
-  description = "Allow requester VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the accepter VPC"
+  description = "Don't use the credentials of EC2 instance profile"
 }
 
 variable "tags" {

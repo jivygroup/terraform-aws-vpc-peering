@@ -18,6 +18,12 @@ This module can be used to create one-way peering connection requests which will
 This will only require defining the requester. The accpeter will need to accept and configure the required
 security posture on the other end.
 
+In order to successfully set peering options for the reuqester VPC, the peering connection must be accepted.
+This requires either:
+- The requester and accepter to be in the same account
+- A privder with permissions in each account to accept at time of apply
+- The accepter to be an accept resouce managed by a third party cloud provider, ex. CloudAMQP.
+
 ## Contributing
 
 Please feel free to fork this repo and create a PR.
