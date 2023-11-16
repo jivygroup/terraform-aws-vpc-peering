@@ -1,8 +1,8 @@
 # Lookup accepter's VPC so that we can reference the CIDR
 data "aws_vpc" "accepter" {
-  count    = local.accepter_count
-  id       = var.accepter_vpc_id
-  tags     = var.accepter_vpc_tags
+  count = local.accepter_count
+  id    = var.accepter_vpc_id
+  tags  = var.accepter_vpc_tags
 }
 
 # Lookup accepter subnets
@@ -18,8 +18,6 @@ data "aws_subnets" "accepter" {
 locals {
   accepter_subnet_ids = local.accepter_enabled ? data.aws_subnets.accepter[0].ids : []
   accepter_vpc_id     = join("", data.aws_vpc.accepter[*].id)
-  accepter_account_id = join("", data.aws_caller_identity.accepter[*].account_id)
-  accepter_region     = join("", data.aws_region.accepter[*].name)
 }
 
 data "aws_route_tables" "accepter" {
@@ -33,8 +31,8 @@ data "aws_route_tables" "accepter" {
 
 # If we had more subnets than routetables, we should update the default.
 data "aws_route_tables" "accepter_default_rts" {
-  count    = local.accepter_count
-  vpc_id   = local.accepter_vpc_id
+  count  = local.accepter_count
+  vpc_id = local.accepter_vpc_id
   filter {
     name   = "association.main"
     values = ["true"]
@@ -52,7 +50,7 @@ data "aws_security_group" "accepter" {
 
 locals {
   #todo: like here
-  accepter_aws_default_rt_id             = join("", flatten(data.aws_route_tables.default_rts[*].ids))
+  accepter_aws_default_rt_id             = join("", flatten(data.aws_route_tables.accepter_default_rts[*].ids))
   accepter_aws_rt_map                    = { for s in local.accepter_subnet_ids : s => try(data.aws_route_tables.accepter[s].ids[0], local.accepter_aws_default_rt_id) }
   accepter_aws_route_table_ids           = distinct(sort(values(local.accepter_aws_rt_map)))
   accepter_aws_route_table_ids_count     = length(local.accepter_aws_route_table_ids)
@@ -65,22 +63,7 @@ resource "aws_vpc_peering_connection_accepter" "accepter" {
   count                     = local.accepter_count
   vpc_peering_connection_id = local.requested_vpc_peering_connection_id
   auto_accept               = var.auto_accept
-  tags                      = module.accepter.tags
-}
-
-# Options can't be set until the connection has been accepted and is active,
-# so create an explicit dependency on the accepter when setting options.
-locals {
-  requested_vpc_peering_connection_id = (
-    local.accepter_enabled 
-    ? try(
-      var.peering_connection_id_to_accept,
-      join("", aws_vpc_peering_connection.requester[*].id)
-    ) 
-    : null
-  )
-
-  active_vpc_peering_connection_id = local.accepter_enabled ? join("", aws_vpc_peering_connection_accepter.accepter[*].id) : null
+  tags                      = var.tags
 }
 
 resource "aws_vpc_peering_connection_options" "accepter" {

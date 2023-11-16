@@ -25,8 +25,8 @@ data "aws_route_tables" "requester" {
 
 # If we had more subnets than routetables, we should update the default.
 data "aws_route_tables" "requester_default_rts" {
-  count    = local.requester_count
-  vpc_id   = local.requester_vpc_id
+  count  = local.requester_count
+  vpc_id = local.requester_vpc_id
   filter {
     name   = "association.main"
     values = ["true"]
@@ -60,8 +60,8 @@ resource "aws_vpc_peering_connection" "requester" {
   count         = local.requester_count
   vpc_id        = local.requester_vpc_id
   peer_vpc_id   = local.accepter_vpc_id
-  peer_owner_id = local.accepter_account_id
-  peer_region   = local.accepter_region
+  peer_owner_id = var.accepter_account_id
+  peer_region   = var.accepter_region
   auto_accept   = false
 
   tags = merge(var.tags, {

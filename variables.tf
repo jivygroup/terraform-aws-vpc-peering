@@ -16,9 +16,9 @@ variable "accepter_enabled" {
   default     = true
 }
 
-variable "accepter_owner_id" {
+variable "accepter_account_id" {
   type        = string
-  description = "accepter account ID"
+  description = "Accepter account ID"
   default     = ""
 }
 
@@ -160,12 +160,6 @@ variable "requester_vpc_tags" {
   type        = map(string)
   description = "Requester VPC Tags filter"
   default     = {}
-}
-
-variable "skip_metadata_api_check" {
-  type        = bool
-  default     = false
-  description = "Don't use the credentials of EC2 instance profile"
 }
 
 variable "tags" {
