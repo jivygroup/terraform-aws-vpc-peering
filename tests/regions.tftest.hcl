@@ -49,7 +49,7 @@ run "vpc_requester" {
   }
 
   module {
-    source  = "app.terraform.io/OM2Phoenix/vpc/aws"
+    source  = "app.terraform.io/TOMS/vpc/aws"
     version = "0.2.0"
   }
 }
@@ -74,7 +74,7 @@ run "vpc_accepter" {
   }
 
   module {
-    source  = "app.terraform.io/OM2Phoenix/vpc/aws"
+    source  = "app.terraform.io/TOMS/vpc/aws"
     version = "0.2.0"
   }
 }

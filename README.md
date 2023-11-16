@@ -28,6 +28,16 @@ This requires either:
 
 Please feel free to fork this repo and create a PR.
 
+Use pre-commit-terraform docker image to run pre-commit checks.
+These will include:
+- terraform fmt
+- terraform docs
+- terraform validate
+- tfsec
+- tflint
+- checkov
+- terrascan
+
 ## Docs
 
 Documentation is updated using pre-commit terraform docs implementation.

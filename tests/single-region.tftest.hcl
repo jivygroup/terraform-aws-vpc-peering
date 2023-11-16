@@ -1,5 +1,5 @@
 variables {
-  region = "eu-west-1"
+  region                = "eu-west-1"
   az_primary            = "a"
   az_secondary          = "b"
   az_tertiary           = "c"
@@ -25,8 +25,8 @@ provider "aws" {
 
 run "vpc_requester" {
   variables {
-    name                  = "terraform-awsvpcpeering-requester"
-    cidr_prefix           = "10.245"
+    name        = "terraform-awsvpcpeering-requester"
+    cidr_prefix = "10.245"
   }
 
   module {
@@ -37,8 +37,8 @@ run "vpc_requester" {
 
 run "vpc_accepter" {
   variables {
-    name                  = "terraform-awsvpcpeering-accepter"
-    cidr_prefix           = "10.250"
+    name        = "terraform-awsvpcpeering-accepter"
+    cidr_prefix = "10.250"
   }
 
   module {

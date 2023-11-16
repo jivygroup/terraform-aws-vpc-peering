@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~>1.6.0"
+  required_version = "1.6.1"
 
   required_providers {
 
@@ -40,7 +40,7 @@ provider "aws" {
 }
 
 module "vpc" {
-  source  = "app.terraform.io/OM2/vpc/aws"
+  source  = "app.terraform.io/TOMS/vpc/aws"
   version = "0.1.1"
 
   az_primary            = "a"
@@ -92,9 +92,9 @@ module "vpc_peering_request" {
 
   requester_vpc_id                          = module.vpc.vpc_id
   requester_allow_remote_vpc_dns_resolution = false
-  manage_local_security_group_rule          = true
+  open_local_security_group_rule            = false
 
-  accepter_owner_id   = each.value.account_id
+  accepter_account_id = each.value.account_id
   accepter_vpc_id     = each.value.peer_vpc_id
   accepter_region     = each.value.peer_region
   accepter_cidr_block = each.value.cidr_block

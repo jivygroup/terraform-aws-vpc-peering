@@ -100,6 +100,7 @@ variable "delete_timeout" {
 variable "open_local_security_group_rule" {
   type        = bool
   description = "Define whether or not to inject the required security group rule into the local Phoenix security group. If not then this rule should be added in the calling module directly to the Phoenix SG"
+  default     = false
 }
 
 variable "name" {
@@ -172,16 +173,4 @@ variable "update_timeout" {
   type        = string
   description = "VPC peering connection update timeout. For more details, see https://www.terraform.io/docs/configuration/resources.html#operation-timeouts"
   default     = "30m"
-}
-
-variable "test" {
-  type        = bool
-  description = "A boolean value to control creation of VPC peering connection"
-  default     = false
-}
-
-variable "test1" {
-  type        = bool
-  description = "A boolean value to control creation of VPC peering connection"
-  default     = false
 }

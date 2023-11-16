@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~>1.6.0"
+  required_version = "1.6.1"
 
   required_providers {
 
@@ -53,11 +53,11 @@ module "vpc_peering_cross_account_accept" {
   requester_vpc_id     = each.value.requester_vpc_id
   requester_cidr_block = each.value.requester_cidr
 
-  peering_accepter                         = local.peering_accepter
-  peering_connection_id                    = each.value.peering_connection_id
+  accepter_enabled                         = local.peering_accepter
+  peering_connection_id_to_accept          = each.value.peering_connection_id
   accepter_vpc_id                          = each.value.accepter_vpc_id
   auto_accept                              = true
   accepter_allow_remote_vpc_dns_resolution = false
-  manage_local_security_group_rule         = false
+  open_local_security_group_rule           = false
 
 }
