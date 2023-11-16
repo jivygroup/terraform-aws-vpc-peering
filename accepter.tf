@@ -1,3 +1,7 @@
+resource "random_string" "test" {
+  length = 10
+}
+
 # Lookup accepter's VPC so that we can reference the CIDR
 data "aws_vpc" "accepter" {
   count = local.accepter_count

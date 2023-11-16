@@ -179,3 +179,9 @@ variable "test" {
   description = "A boolean value to control creation of VPC peering connection"
   default     = false
 }
+
+variable "test1" {
+  type        = bool
+  description = "A boolean value to control creation of VPC peering connection"
+  default     = false
+}
