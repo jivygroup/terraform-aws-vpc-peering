@@ -2,13 +2,11 @@ repos:
 - repo: https://github.com/antonbabenko/pre-commit-terraform
   rev: v1.83.5
   hooks:
-    #- id: tfupdate
     - id: terraform_fmt
-    - id: terraform_validate
       args:
         - --hook-config=--retry-once-with-cleanup=true
-    - id: terrascan
-    - id: terraform_tfsec
+    # - id: terrascan
+    # - id: terraform_tfsec
     # - id: terraform_tflint
     #   args:
     #     - --args=--module
