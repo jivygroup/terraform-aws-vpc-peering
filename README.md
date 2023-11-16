@@ -28,6 +28,11 @@ This requires either:
 
 Please feel free to fork this repo and create a PR.
 
+## Docs
+
+Documentation is updated using pre-commit terraform docs implementation.
+To use please ensure that pre-commit is installed and run `pre-commit install` in the root of the repo.
+
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

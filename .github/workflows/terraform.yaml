@@ -101,6 +101,24 @@ jobs:
           #config_file: path/this_file
           #baseline: cloudformation/.checkov.baseline # optional: Path to a generated baseline file. Will only report results not in the baseline.
 
+  docs:
+    runs-on: ubuntu-latest
+    if: contains(github.ref, 'pull')
+    steps:
+      - name: gitref
+        run: |
+          echo "github.ref: ${{ github.ref }}"
+          echo "github.head_ref: ${{ github.head_ref }}"
+
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Test terraform docs
+        uses: terraform-docs/gh-actions@v1
+        with:
+          fail-on-diff: true
+
   terraform-test:
     name: "Terraform Tests"
     runs-on: ubuntu-latest
