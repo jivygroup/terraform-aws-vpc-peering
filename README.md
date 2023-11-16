@@ -33,6 +33,10 @@ Please feel free to fork this repo and create a PR.
 Documentation is updated using pre-commit terraform docs implementation.
 To use please ensure that pre-commit is installed and run `pre-commit install` in the root of the repo.
 
+1. choco install python
+2. python -m pip install -U pip
+3. 
+
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

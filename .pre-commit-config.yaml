@@ -1,5 +1,9 @@
 repos:
-  - repo: https://github.com/terraform-docs/terraform-docs
-    rev: "0.16.0"
+  - repo: local
     hooks:
-      - id: terraform-docs-go
+      - id: terraform-docs
+        name: terraform-docs
+        language: docker_image
+        entry: quay.io/terraform-docs/terraform-docs:latest
+        pass_filenames: false
+        args: ["--output-file", "README.md", "."]

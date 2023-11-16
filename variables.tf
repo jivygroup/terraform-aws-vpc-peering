@@ -173,3 +173,9 @@ variable "update_timeout" {
   description = "VPC peering connection update timeout. For more details, see https://www.terraform.io/docs/configuration/resources.html#operation-timeouts"
   default     = "30m"
 }
+
+variable "test" {
+  type        = bool
+  description = "A boolean value to control creation of VPC peering connection"
+  default     = false
+}
