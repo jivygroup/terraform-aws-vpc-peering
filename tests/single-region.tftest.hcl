@@ -1,5 +1,13 @@
 variables {
   region = "eu-west-1"
+  az_primary            = "a"
+  az_secondary          = "b"
+  az_tertiary           = "c"
+  az_primary_db_ro      = "a"
+  az_secondary_db_ro    = "b"
+  az_tertiary_db_ro     = "c"
+  domain                = "om2.com"
+  public_hosted_zone_id = "Z166M0JOPOZR5U"
 }
 
 provider "aws" {
@@ -17,16 +25,7 @@ provider "aws" {
 
 run "vpc_requester" {
   variables {
-    az_primary            = "a"
-    az_secondary          = "b"
-    az_tertiary           = "c"
-    az_primary_db_ro      = "a"
-    az_secondary_db_ro    = "b"
-    az_tertiary_db_ro     = "c"
-    domain                = "om2.com"
     name                  = "terraform-awsvpcpeering-requester"
-    public_hosted_zone_id = "Z166M0JOPOZR5U"
-    region                = var.region
     cidr_prefix           = "10.245"
   }
 
@@ -38,16 +37,7 @@ run "vpc_requester" {
 
 run "vpc_accepter" {
   variables {
-    az_primary            = "a"
-    az_secondary          = "b"
-    az_tertiary           = "c"
-    az_primary_db_ro      = "a"
-    az_secondary_db_ro    = "b"
-    az_tertiary_db_ro     = "c"
-    domain                = "om2.com"
     name                  = "terraform-awsvpcpeering-accepter"
-    public_hosted_zone_id = "Z166M0JOPOZR5U"
-    region                = var.region
     cidr_prefix           = "10.250"
   }
 
