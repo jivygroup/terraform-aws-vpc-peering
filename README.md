@@ -120,7 +120,7 @@ No modules.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~>1.6.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | 1.6.1 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | 5.4.0 |
 
 ## Providers
@@ -128,7 +128,7 @@ No modules.
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.4.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.5.1 |
 
 ## Modules
 
@@ -180,7 +180,7 @@ No modules.
 | <a name="input_create_timeout"></a> [create\_timeout](#input\_create\_timeout) | VPC peering connection create timeout. For more details, see https://www.terraform.io/docs/configuration/resources.html#operation-timeouts | `string` | `"30m"` | no |
 | <a name="input_delete_timeout"></a> [delete\_timeout](#input\_delete\_timeout) | VPC peering connection delete timeout. For more details, see https://www.terraform.io/docs/configuration/resources.html#operation-timeouts | `string` | `"5m"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the peering connection | `string` | n/a | yes |
-| <a name="input_open_local_security_group_rule"></a> [open\_local\_security\_group\_rule](#input\_open\_local\_security\_group\_rule) | Define whether or not to inject the required security group rule into the local Phoenix security group. If not then this rule should be added in the calling module directly to the Phoenix SG | `bool` | n/a | yes |
+| <a name="input_open_local_security_group_rule"></a> [open\_local\_security\_group\_rule](#input\_open\_local\_security\_group\_rule) | Define whether or not to inject the required security group rule into the local Phoenix security group. If not then this rule should be added in the calling module directly to the Phoenix SG | `bool` | `false` | no |
 | <a name="input_peering_connection_id_to_accept"></a> [peering\_connection\_id\_to\_accept](#input\_peering\_connection\_id\_to\_accept) | ID of the VPC Peering connection to accept. Only in-use for accepter-only workspaces. | `string` | `null` | no |
 | <a name="input_requester_allow_remote_vpc_dns_resolution"></a> [requester\_allow\_remote\_vpc\_dns\_resolution](#input\_requester\_allow\_remote\_vpc\_dns\_resolution) | Allow requester VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the accepter VPC | `bool` | `true` | no |
 | <a name="input_requester_cidr_block"></a> [requester\_cidr\_block](#input\_requester\_cidr\_block) | The CIDR block of the requester that will be used in accepter | `string` | `""` | no |
@@ -191,8 +191,6 @@ No modules.
 | <a name="input_requester_vpc_id"></a> [requester\_vpc\_id](#input\_requester\_vpc\_id) | requester VPC ID | `string` | `""` | no |
 | <a name="input_requester_vpc_tags"></a> [requester\_vpc\_tags](#input\_requester\_vpc\_tags) | Requester VPC Tags filter | `map(string)` | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to assign to the VPC peering connection | `map(string)` | `{}` | no |
-| <a name="input_test"></a> [test](#input\_test) | A boolean value to control creation of VPC peering connection | `bool` | `false` | no |
-| <a name="input_test1"></a> [test1](#input\_test1) | A boolean value to control creation of VPC peering connection | `bool` | `false` | no |
 | <a name="input_update_timeout"></a> [update\_timeout](#input\_update\_timeout) | VPC peering connection update timeout. For more details, see https://www.terraform.io/docs/configuration/resources.html#operation-timeouts | `string` | `"30m"` | no |
 
 ## Outputs
