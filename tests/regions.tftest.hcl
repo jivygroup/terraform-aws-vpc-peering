@@ -29,6 +29,7 @@ provider "aws" {
   }
 }
 
+/*
 run "vpc_requester" {
   variables {
     az_primary            = "a"
@@ -78,23 +79,28 @@ run "vpc_accepter" {
     version = "0.2.0"
   }
 }
+*/
 
 run "request" {
 
   variables {
     accepter_allow_remote_vpc_dns_resolution  = true
-    accepter_cidr_block                       = run.vpc_accepter.cidr_block
+    #accepter_cidr_block                       = run.vpc_accepter.cidr_block
+    accepter_cidr_block                       = "10.128.0.0/16"
     accepter_enabled                          = true
     accepter_region                           = "eu-west-2"
-    accepter_vpc_id                           = run.vpc_accepter.id
+    #accepter_vpc_id                           = run.vpc_accepter.id
+    accepter_vpc_id                           = "vpc-0e7f56e28e1e1882d"
     auto_accept                               = false
     create                                    = true
     open_local_security_group_rule            = true
     name                                      = "terraform-awsvpcpeering-test"
     requester_allow_remote_vpc_dns_resolution = true
-    requester_cidr_block                      = run.vpc_requester.cidr_block
+    #requester_cidr_block                      = run.vpc_requester.cidr_block
+    requester_cidr_block                      = "10.127.0.0/16"
     requester_enabled                         = true
-    requester_vpc_id                          = run.vpc_requester.id
+    #requester_vpc_id                          = run.vpc_requester.id
+    requester_vpc_id                          = "vpc-058cf57c3201ba659"
   }
 
   providers = {
