@@ -33,19 +33,8 @@ These will include:
 - terraform fmt
 - terraform docs
 - terraform validate
-- tfsec
-- tflint
-- checkov
-- terrascan
 
-## Docs
-
-Documentation is updated using pre-commit terraform docs implementation.
-To use please ensure that pre-commit is installed and run `pre-commit install` in the root of the repo.
-
-1. choco install python
-2. python -m pip install -U pip
-3. 
+More checks can be added to the .pre-commit-config.yaml file
 
 
 <!-- BEGIN_TF_DOCS -->
