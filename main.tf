@@ -7,8 +7,8 @@ locals {
   requested_vpc_peering_connection_id = (
     local.accepter_enabled == true
     ? try(
-      join("", aws_vpc_peering_connection.requester[*].id),
-      var.peering_connection_id_to_accept
+      var.peering_connection_id_to_accept,
+      aws_vpc_peering_connection.requester[*].id
     )
     : null
   )
