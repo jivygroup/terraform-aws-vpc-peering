@@ -103,7 +103,7 @@ jobs:
 
   docs:
     runs-on: ubuntu-latest
-    if: contains(github.ref, 'pull')
+    if: contains(github.ref, 'null')
     steps:
       - name: gitref
         run: |
