@@ -13,7 +13,7 @@ variable "accepter_cidr_block" {
 variable "accepter_enabled" {
   description = "Flag to enable/disable the accepter side of the peering connection"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "accepter_account_id" {

@@ -66,7 +66,7 @@ locals {
 resource "aws_vpc_peering_connection_accepter" "accepter" {
   count                     = local.accepter_count
   vpc_peering_connection_id = local.requested_vpc_peering_connection_id
-  auto_accept               = var.auto_accept
+  auto_accept               = true
   tags                      = var.tags
 }
 
