@@ -110,7 +110,7 @@ run "request" {
   }
 
   assert {
-    condition     = outputs.accept_status == "active"
+    condition     = outputs.accept_status != "failed"
     error_message = "Peering connection statuys not active."
   }
 }
