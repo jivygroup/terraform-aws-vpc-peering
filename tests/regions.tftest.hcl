@@ -91,7 +91,7 @@ run "request" {
     accepter_region                           = "eu-west-2"
     #accepter_vpc_id                           = run.vpc_accepter.id
     accepter_vpc_id                           = "vpc-0e7f56e28e1e1882d"
-    auto_accept                               = false
+    auto_accept                               = true
     create                                    = true
     open_local_security_group_rule            = true
     name                                      = "terraform-awsvpcpeering-test"
