@@ -25,6 +25,8 @@ provider "aws" {
       CostGroup   = "Phoenix"
       Environment = "terraform-autotest"
       repo        = "terraform-aws-vpc-peering"
+      Purpose     = "test"
+      Stack       = "test"
     }
   }
 }
