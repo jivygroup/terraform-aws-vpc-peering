@@ -1,1 +1,3 @@
-# A file for main terraform configuration
+locals {
+  same_account = var.accepter_account_id != ""
+}
