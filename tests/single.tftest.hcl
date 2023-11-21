@@ -23,7 +23,7 @@ provider "aws" {
     tags = {
       managedBy   = "terraform"
       CostGroup   = "Phoenix"
-      Environment = "OM2-PhoenixIntegrations"
+      Environment = "terraform-autotest"
       repo        = "terraform-aws-vpc-peering"
     }
   }
@@ -91,7 +91,7 @@ run "peering" {
 
   assert {
     condition     = output.accept_status != "failed"
-    error_message = "Peering connection status not active."
+    error_message = "Peering connection status failed."
   }
 
   assert {
