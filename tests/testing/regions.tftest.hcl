@@ -2,7 +2,7 @@ variables {
   accepter_allow_remote_vpc_dns_resolution  = true
   accepter_cidr_block                       = "10.128.0.0/16"
   accepter_region                           = "eu-west-2"
-  accepter_vpc_id                           = "vpc-03ede06141c8c4c9d"
+  accepter_vpc_id                           = "vpc-ABCDEFGHIJKL"
   auto_accept                               = false
   create                                    = true
   open_local_security_group_rule            = true
@@ -10,7 +10,7 @@ variables {
   requester_allow_remote_vpc_dns_resolution = true
   requester_cidr_block                      = "10.127.0.0/16"
   requester_region                          = "eu-west-1"
-  requester_vpc_id                          = "vpc-058cf57c3201ba659"
+  requester_vpc_id                          = "vpc-1234567890"
   #accepter_cidr_block                       = run.vpc_accepter.cidr_block
   #accepter_vpc_id                           = run.vpc_accepter.id
   #requester_cidr_block                      = run.vpc_requester.cidr_block
