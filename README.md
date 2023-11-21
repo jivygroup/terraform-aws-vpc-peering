@@ -38,6 +38,9 @@ More checks can be added to the .pre-commit-config.yaml file
 Additional checks such as terraform test have been added in the scripts pre-commit.sh and pre-commit.ps1
 Feel free to run either.
 
+## Licensing
+
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
