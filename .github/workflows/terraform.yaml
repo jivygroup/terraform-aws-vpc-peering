@@ -148,7 +148,7 @@ jobs:
       - name: Terraform Test
         id: test
         if: github.event_name == 'pull_request'
-        run: terraform test -verbose
+        run: terraform test
 
   notify:
     runs-on: ubuntu-latest
