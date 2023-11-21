@@ -7,7 +7,7 @@ variable "accepter_allow_remote_vpc_dns_resolution" {
 variable "accepter_cidr_block" {
   type        = string
   description = "cidr block for accepter's VPC"
-  default     = ""
+  default     = null
 }
 
 variable "accepter_enabled" {
@@ -52,7 +52,6 @@ variable "accepter_subnet_tags" {
 variable "accepter_vpc_id" {
   type        = string
   description = "Accepter VPC ID filter"
-  default     = ""
 }
 
 variable "accepter_vpc_tags" {
@@ -154,7 +153,7 @@ variable "requester_subnet_tags" {
 
 variable "requester_vpc_id" {
   description = "requester VPC ID"
-  default     = ""
+  type        = string
 }
 
 variable "requester_vpc_tags" {

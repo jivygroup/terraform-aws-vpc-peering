@@ -1,32 +1,39 @@
+locals {
+  accepter_enabled                 = var.create && var.accepter_enabled
+  accepter_count                   = var.create && var.accepter_enabled ? 1 : 0
+  active_vpc_peering_connection_id = try(aws_vpc_peering_connection_accepter.accepter[0].id, null)
+
+  requested_vpc_peering_connection_id = try(var.peering_connection_id_to_accept, aws_vpc_peering_connection.requester[0].id)
+}
+
 resource "random_string" "test" {
   length = 10
 }
 
 # Lookup accepter's VPC so that we can reference the CIDR
 data "aws_vpc" "accepter" {
-  count = local.accepter_count
+  count = local.same_account ? 1 : local.accepter_count
   id    = var.accepter_vpc_id
   tags  = var.accepter_vpc_tags
 }
 
 # Lookup accepter subnets
 data "aws_subnets" "accepter" {
-  count = local.accepter_count
+  count = local.same_account ? 1 : local.accepter_count
   filter {
     name   = "vpc-id"
-    values = [local.accepter_vpc_id]
+    values = [var.accepter_vpc_id]
   }
   tags = var.accepter_subnet_tags
 }
 
 locals {
   accepter_subnet_ids = local.accepter_enabled ? data.aws_subnets.accepter[0].ids : []
-  accepter_vpc_id     = join("", data.aws_vpc.accepter[*].id)
 }
 
 data "aws_route_tables" "accepter" {
   for_each = toset(local.accepter_subnet_ids)
-  vpc_id   = local.accepter_vpc_id
+  vpc_id   = var.accepter_vpc_id
   filter {
     name   = "association.subnet-id"
     values = [each.key]
@@ -36,7 +43,7 @@ data "aws_route_tables" "accepter" {
 # If we had more subnets than routetables, we should update the default.
 data "aws_route_tables" "accepter_default_rts" {
   count  = local.accepter_count
-  vpc_id = local.accepter_vpc_id
+  vpc_id = var.accepter_vpc_id
   filter {
     name   = "association.main"
     values = ["true"]
@@ -45,7 +52,7 @@ data "aws_route_tables" "accepter_default_rts" {
 
 data "aws_security_group" "accepter" {
   count  = local.accepter_count
-  vpc_id = data.aws_vpc.accepter[0].id
+  vpc_id = var.accepter_vpc_id
   filter {
     name   = "group-name"
     values = [var.accepter_security_group_name]
@@ -54,11 +61,11 @@ data "aws_security_group" "accepter" {
 
 locals {
   #todo: like here
-  accepter_aws_default_rt_id             = join("", flatten(data.aws_route_tables.accepter_default_rts[*].ids))
+  accepter_aws_default_rt_id             = try(data.aws_route_tables.accepter_default_rts[0].ids, null)
   accepter_aws_rt_map                    = { for s in local.accepter_subnet_ids : s => try(data.aws_route_tables.accepter[s].ids[0], local.accepter_aws_default_rt_id) }
   accepter_aws_route_table_ids           = distinct(sort(values(local.accepter_aws_rt_map)))
   accepter_aws_route_table_ids_count     = length(local.accepter_aws_route_table_ids)
-  accepter_cidr_block_associations       = flatten(data.aws_vpc.accepter[*].cidr_block_associations)
+  accepter_cidr_block_associations       = try(flatten(data.aws_vpc.accepter[0].cidr_block_associations), [])
   accepter_cidr_block_associations_count = length(local.accepter_cidr_block_associations)
 }
 

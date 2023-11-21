@@ -1,15 +1,15 @@
 variables {
-  requester_region                          = "eu-west-1"
-  accepter_region                           = "eu-west-2"
   accepter_allow_remote_vpc_dns_resolution  = true
   accepter_cidr_block                       = "10.128.0.0/16"
-  accepter_vpc_id                           = "vpc-0e7f56e28e1e1882d"
+  accepter_region                           = "eu-west-2"
+  accepter_vpc_id                           = "vpc-03ede06141c8c4c9d"
   auto_accept                               = false
   create                                    = true
   open_local_security_group_rule            = true
-  name                                      = "terraform-awsvpcpeering-test"
+  name                                      = "terraform-autotest-vpcpeering"
   requester_allow_remote_vpc_dns_resolution = true
   requester_cidr_block                      = "10.127.0.0/16"
+  requester_region                          = "eu-west-1"
   requester_vpc_id                          = "vpc-058cf57c3201ba659"
   #accepter_cidr_block                       = run.vpc_accepter.cidr_block
   #accepter_vpc_id                           = run.vpc_accepter.id
@@ -95,22 +95,23 @@ run "vpc_accepter" {
 }
 */
 
-run "request" {
+run "requester" {
 
   variables {
     requester_enabled = true
   }
+
   providers = {
     aws = aws.requester
   }
 
   assert {
-    condition     = can(outputs.peering_connection_id)
+    condition     = can(output.peering_connection_id)
     error_message = "Peering connection not created successfully. Missing connection ID"
   }
 
   assert {
-    condition     = outputs.accept_status != "failed"
+    condition     = output.accept_status != "failed"
     error_message = "Peering connection statuys not active."
   }
 }
@@ -118,7 +119,8 @@ run "request" {
 run "accepter" {
 
   variables {
-    accepter_enabled = true
+    accepter_enabled                = true
+    peering_connection_id_to_accept = run.requester.peering_connection_id
   }
 
   providers = {
@@ -126,12 +128,12 @@ run "accepter" {
   }
 
   assert {
-    condition     = can(outputs.peering_connection_id)
+    condition     = can(output.peering_connection_id)
     error_message = "Peering connection not created successfully. Missing connection ID"
   }
 
   assert {
-    condition     = outputs.accept_status == "active"
-    error_message = "Peering connection statuys not active."
+    condition     = output.accept_status == "active"
+    error_message = "Peering connection status not active."
   }
 }

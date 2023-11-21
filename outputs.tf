@@ -1,5 +1,5 @@
 output "accept_status" {
-  value       = try(coalesce(aws_vpc_peering_connection.requester[*].accept_statusaws_vpc_peering_connection_accepter.accepter[*].accept_status), "")
+  value       = coalesce(aws_vpc_peering_connection.requester[0].accept_status, aws_vpc_peering_connection_accepter.accepter[0].accept_status)
   description = "Requester VPC peering connection request status"
 }
 
@@ -9,7 +9,7 @@ output "accepter_subnet_route_table_map" {
 }
 
 output "peering_connection_id" {
-  value       = try(coalesce(aws_vpc_peering_connection.requester[0].id, aws_vpc_peering_connection_accepter.accepter[*].id), "")
+  value       = coalesce(aws_vpc_peering_connection.requester[0].id, aws_vpc_peering_connection_accepter.accepter[0].id)
   description = "ID of the peering connection"
 }
 

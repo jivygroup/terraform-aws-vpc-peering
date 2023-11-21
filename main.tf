@@ -1,10 +1,3 @@
 locals {
-  requester_enabled = var.create && var.requester_enabled
-  requester_count   = var.create && var.requester_enabled ? 1 : 0
-  accepter_enabled  = var.create && var.accepter_enabled
-  accepter_count    = var.create && var.accepter_enabled ? 1 : 0
-
-  requested_vpc_peering_connection_id = try(aws_vpc_peering_connection.requester[*].id, var.peering_connection_id_to_accept)
-
-  active_vpc_peering_connection_id = local.accepter_enabled ? join("", aws_vpc_peering_connection_accepter.accepter[*].id) : null
+  same_account = var.accepter_account_id != ""
 }
