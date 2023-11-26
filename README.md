@@ -35,6 +35,7 @@ These will include:
 - terraform validate
 
 More checks can be added to the .pre-commit-config.yaml file
+Testing
 
 
 <!-- BEGIN_TF_DOCS -->
