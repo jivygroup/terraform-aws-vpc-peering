@@ -66,7 +66,7 @@ resource "aws_vpc_peering_connection" "requester" {
   peer_vpc_id   = var.accepter_vpc_id
   peer_owner_id = var.accepter_account_id
   peer_region   = var.accepter_region
-  auto_accept   = false
+  auto_accept   = alltrue([var.auto_accept, local.same_account])
 
   tags = merge(var.tags, {
     Name = var.name

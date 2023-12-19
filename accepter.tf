@@ -2,8 +2,6 @@ locals {
   accepter_enabled                 = var.create && var.accepter_enabled
   accepter_count                   = var.create && var.accepter_enabled ? 1 : 0
   active_vpc_peering_connection_id = try(aws_vpc_peering_connection_accepter.accepter[0].id, null)
-
-  requested_vpc_peering_connection_id = var.peering_connection_id_to_accept != null ? var.peering_connection_id_to_accept : aws_vpc_peering_connection.requester[0].id
 }
 
 resource "random_string" "test" {
@@ -12,7 +10,7 @@ resource "random_string" "test" {
 
 # Lookup accepter's VPC so that we can reference the CIDR
 data "aws_vpc" "accepter" {
-  count = local.same_account ? 1 : local.accepter_count
+  count = local.same_account ? 0 : local.accepter_count
   id    = var.accepter_vpc_id
   tags  = var.accepter_vpc_tags
 }
@@ -71,8 +69,8 @@ locals {
 
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_accepter" "accepter" {
-  count                     = local.accepter_count
-  vpc_peering_connection_id = local.requested_vpc_peering_connection_id
+  count                     = local.same_account == false ? 1 : local.accepter_count
+  vpc_peering_connection_id = var.peering_connection_id_to_accept
   auto_accept               = true
   tags                      = var.tags
 }

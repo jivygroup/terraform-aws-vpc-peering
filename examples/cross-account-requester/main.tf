@@ -100,4 +100,3 @@ module "vpc_peering_request" {
   accepter_cidr_block = each.value.cidr_block
   auto_accept         = false
 }
-
