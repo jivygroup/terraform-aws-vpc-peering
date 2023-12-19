@@ -110,7 +110,7 @@ variable "name" {
 variable "peering_connection_id_to_accept" {
   type        = string
   description = "ID of the VPC Peering connection to accept. Only in-use for accepter-only workspaces."
-  default     = null
+  default     = ""
 }
 
 variable "requester_allow_remote_vpc_dns_resolution" {
