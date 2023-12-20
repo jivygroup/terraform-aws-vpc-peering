@@ -66,7 +66,7 @@ resource "aws_vpc_peering_connection" "requester" {
   peer_vpc_id   = var.accepter_vpc_id
   peer_owner_id = var.accepter_account_id
   peer_region   = var.accepter_region
-  auto_accept   = alltrue([var.auto_accept, local.same_account])
+  auto_accept   = false
 
   tags = merge(var.tags, {
     Name = var.name
@@ -91,6 +91,10 @@ resource "aws_vpc_peering_connection_options" "requester" {
   requester {
     allow_remote_vpc_dns_resolution = var.requester_allow_remote_vpc_dns_resolution
   }
+
+  depends_on = [
+    aws_vpc_peering_connection_accepter.accepter
+  ]
 }
 
 locals {

@@ -1,7 +1,9 @@
 locals {
-  accepter_enabled                 = var.create && var.accepter_enabled
-  accepter_count                   = var.create && var.accepter_enabled ? 1 : 0
+  accepter_enabled                 = alltrue([var.create, var.accepter_enabled])
+  accepter_count                   = alltrue([local.accepter_enabled]) ? 1 : 0
   active_vpc_peering_connection_id = try(aws_vpc_peering_connection.requester[0].id, null)
+
+  requested_vpc_peering_connection_id = var.peering_connection_id_to_accept != null ? var.peering_connection_id_to_accept : aws_vpc_peering_connection.requester[0].id
 }
 
 resource "random_string" "test" {
@@ -69,8 +71,8 @@ locals {
 
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_accepter" "accepter" {
-  count                     = local.same_account == false ? 1 : local.accepter_count
-  vpc_peering_connection_id = var.peering_connection_id_to_accept
+  count                     = local.accepter_count
+  vpc_peering_connection_id = local.requested_vpc_peering_connection_id
   auto_accept               = true
   tags                      = var.tags
 }
@@ -82,6 +84,10 @@ resource "aws_vpc_peering_connection_options" "accepter" {
   accepter {
     allow_remote_vpc_dns_resolution = var.accepter_allow_remote_vpc_dns_resolution
   }
+
+  depends_on = [
+    aws_vpc_peering_connection_accepter.accepter
+  ]
 }
 
 # Create routes from accepter to requester

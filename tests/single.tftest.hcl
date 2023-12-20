@@ -1,8 +1,9 @@
+# For a functioning test please first create the VPC's in the relevant workpaces in OM2Phoenix organization
 variables {
   accepter_allow_remote_vpc_dns_resolution  = true
   accepter_cidr_block                       = "10.128.0.0/16"
   accepter_enabled                          = true
-  accepter_vpc_id                           = "vpc-0ab1ede4f6a59a56d"
+  accepter_vpc_id                           = "vpc-04e4fae85d4c0792d"
   auto_accept                               = true
   create                                    = true
   open_local_security_group_rule            = true
@@ -10,7 +11,7 @@ variables {
   requester_allow_remote_vpc_dns_resolution = true
   requester_cidr_block                      = "10.127.0.0/16"
   requester_enabled                         = true
-  requester_vpc_id                          = "vpc-058cf57c3201ba659"
+  requester_vpc_id                          = "vpc-0bdf46d09297644fe"
   #accepter_cidr_block                       = run.vpc_accepter.cidr_block
   #accepter_vpc_id                           = run.vpc_accepter.id
   #requester_cidr_block                      = run.vpc_requester.cidr_block
