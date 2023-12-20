@@ -3,7 +3,7 @@ locals {
   accepter_count                   = alltrue([local.accepter_enabled]) ? 1 : 0
   active_vpc_peering_connection_id = try(aws_vpc_peering_connection.requester[0].id, null)
 
-  requested_vpc_peering_connection_id = var.peering_connection_id_to_accept != null ? var.peering_connection_id_to_accept : aws_vpc_peering_connection.requester[0].id
+  requested_vpc_peering_connection_id = var.peering_connection_id_to_accept != null ? var.peering_connection_id_to_accept : try(aws_vpc_peering_connection.requester[0].id, null)
 }
 
 resource "random_string" "test" {
