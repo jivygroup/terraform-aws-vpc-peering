@@ -174,7 +174,7 @@ No modules.
 | <a name="input_create_timeout"></a> [create\_timeout](#input\_create\_timeout) | VPC peering connection create timeout. For more details, see https://www.terraform.io/docs/configuration/resources.html#operation-timeouts | `string` | `"30m"` | no |
 | <a name="input_delete_timeout"></a> [delete\_timeout](#input\_delete\_timeout) | VPC peering connection delete timeout. For more details, see https://www.terraform.io/docs/configuration/resources.html#operation-timeouts | `string` | `"5m"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the peering connection | `string` | n/a | yes |
-| <a name="input_open_local_security_group_rule"></a> [open\_local\_security\_group\_rule](#input\_open\_local\_security\_group\_rule) | Define whether or not to inject the required security group rule into the local Phoenix security group. If not then this rule should be added in the calling module directly to the Phoenix SG | `bool` | `false` | no |
+| <a name="input_open_local_security_group_rule"></a> [open\_local\_security\_group\_rule](#input\_open\_local\_security\_group\_rule) | Define whether or not to inject the required security group rule into the local security group defined by the variables accepter\_security\_group\_name and requester\_security\_group\_name. If not then this rule should be added in the calling module directly to the required SG | `bool` | `false` | no |
 | <a name="input_peering_connection_id_to_accept"></a> [peering\_connection\_id\_to\_accept](#input\_peering\_connection\_id\_to\_accept) | ID of the VPC Peering connection to accept. Only in-use for accepter-only workspaces. | `string` | `null` | no |
 | <a name="input_requester_allow_remote_vpc_dns_resolution"></a> [requester\_allow\_remote\_vpc\_dns\_resolution](#input\_requester\_allow\_remote\_vpc\_dns\_resolution) | Allow requester VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the accepter VPC | `bool` | `true` | no |
 | <a name="input_requester_cidr_block"></a> [requester\_cidr\_block](#input\_requester\_cidr\_block) | The CIDR block of the requester that will be used in accepter | `string` | `""` | no |
@@ -191,8 +191,10 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_accept_status"></a> [accept\_status](#output\_accept\_status) | Requester VPC peering connection request status |
+| <a name="output_accepter_accept_status"></a> [accepter\_accept\_status](#output\_accepter\_accept\_status) | Requester VPC peering connection request status |
+| <a name="output_accepter_peering_connection_id"></a> [accepter\_peering\_connection\_id](#output\_accepter\_peering\_connection\_id) | ID of the peering connection |
 | <a name="output_accepter_subnet_route_table_map"></a> [accepter\_subnet\_route\_table\_map](#output\_accepter\_subnet\_route\_table\_map) | Map of accepter VPC subnet IDs to route table IDs |
-| <a name="output_peering_connection_id"></a> [peering\_connection\_id](#output\_peering\_connection\_id) | ID of the peering connection |
+| <a name="output_requester_accept_status"></a> [requester\_accept\_status](#output\_requester\_accept\_status) | Requester VPC peering connection request status |
 | <a name="output_requester_cidr"></a> [requester\_cidr](#output\_requester\_cidr) | CIRD of the peering connection |
+| <a name="output_requester_peering_connection_id"></a> [requester\_peering\_connection\_id](#output\_requester\_peering\_connection\_id) | ID of the peering connection |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
