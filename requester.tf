@@ -82,7 +82,7 @@ resource "aws_vpc_peering_connection" "requester" {
 
 resource "aws_vpc_peering_connection_options" "requester" {
   # Only provision the options if the accepter side of the peering connection is enabled
-  count = local.accepter_count
+  count = var.requester_enabled ? local.accepter_count : 0
 
   # As options can't be set until the connection has been accepted
   # create an explicit dependency on the accepter.
