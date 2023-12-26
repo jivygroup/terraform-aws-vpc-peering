@@ -98,7 +98,7 @@ variable "delete_timeout" {
 
 variable "open_local_security_group_rule" {
   type        = bool
-  description = "Define whether or not to inject the required security group rule into the local Phoenix security group. If not then this rule should be added in the calling module directly to the Phoenix SG"
+  description = "Define whether or not to inject the required security group rule into the local security group defined by the variables accepter_security_group_name and requester_security_group_name. If not then this rule should be added in the calling module directly to the required SG"
   default     = false
 }
 

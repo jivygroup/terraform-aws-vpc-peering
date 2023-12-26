@@ -1,9 +1,11 @@
 # For a functioning test please first create the VPC's in the relevant workpaces in OM2Phoenix organization
 variables {
+  accepter_account_id                       = "016694560753"
   accepter_allow_remote_vpc_dns_resolution  = true
-  accepter_cidr_block                       = "10.128.0.0/16"
-  accepter_enabled                          = true
+  accepter_cidr_block                       = "10.125.0.0/16"
+  accepter_enabled                          = false
   accepter_vpc_id                           = "vpc-04e4fae85d4c0792d"
+  accepter_region                           = "eu-west-1"
   auto_accept                               = true
   create                                    = true
   open_local_security_group_rule            = true
@@ -88,12 +90,12 @@ run "vpc_accepter" {
 run "peering" {
 
   assert {
-    condition     = can(output.requester_peering_connection_id) && output.requester_peering_connection_id == output.accepter_peering_connection_id
+    condition     = can(output.requester_peering_connection_id)
     error_message = "Peering connection not created successfully. Missing connection ID"
   }
 
   assert {
-    condition     = output.accepter_accept_status != "failed"
+    condition     = output.requester_accept_status != "failed"
     error_message = "Peering connection status failed."
   }
 }
