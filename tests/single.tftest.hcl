@@ -93,7 +93,7 @@ run "peering" {
   }
 
   assert {
-    condition     = output.accept_status != "failed"
+    condition     = output.accepter_accept_status != "failed"
     error_message = "Peering connection status failed."
   }
 }

@@ -1,6 +1,6 @@
 # For a functioning test please first create the VPC's in the relevant workpaces in OM2Phoenix organization
 variables {
-  accepter_account_id                       = "197471599826"
+  accepter_account_id                       = "016694560753"
   accepter_allow_remote_vpc_dns_resolution  = true
   accepter_cidr_block                       = "10.125.0.0/16"
   accepter_enabled                          = false
@@ -95,7 +95,7 @@ run "peering" {
   }
 
   assert {
-    condition     = output.accept_status != "failed"
+    condition     = output.requester_accept_status != "failed"
     error_message = "Peering connection status failed."
   }
 }
