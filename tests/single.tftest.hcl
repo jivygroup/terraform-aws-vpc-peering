@@ -88,17 +88,12 @@ run "vpc_accepter" {
 run "peering" {
 
   assert {
-    condition     = can(output.peering_connection_id)
+    condition     = can(output.requester_peering_connection_id) && output.requester_peering_connection_id == output.accepter_peering_connection_id
     error_message = "Peering connection not created successfully. Missing connection ID"
   }
 
   assert {
     condition     = output.accept_status != "failed"
     error_message = "Peering connection status failed."
-  }
-
-  assert {
-    condition     = can(output.peering_connection_id)
-    error_message = "Peering connection not created successfully. Missing connection ID"
   }
 }
