@@ -1,6 +1,6 @@
 locals {
-  accepter_enabled                 = alltrue([var.create, var.accepter_enabled])
-  accepter_count                   = alltrue([local.accepter_enabled]) ? 1 : 0
+  accepter_enabled                    = alltrue([var.create, var.accepter_enabled])
+  accepter_count                      = alltrue([local.accepter_enabled]) ? 1 : 0
   requested_vpc_peering_connection_id = var.peering_connection_id_to_accept != null ? var.peering_connection_id_to_accept : try(aws_vpc_peering_connection.requester[0].id, null)
 }
 
@@ -115,4 +115,5 @@ resource "aws_security_group_rule" "accepter" {
   protocol          = "-1"
   cidr_blocks       = var.accepter_cidr_block == "" ? [data.aws_vpc.accepter[0].cidr_block] : [var.accepter_cidr_block]
   security_group_id = data.aws_security_group.accepter[0].id
+  description       = "Peering connection: ${local.requested_vpc_peering_connection_id}"
 }
