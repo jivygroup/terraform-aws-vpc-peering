@@ -1,7 +1,7 @@
 locals {
   accepter_enabled                    = alltrue([var.create, var.accepter_enabled])
   accepter_count                      = alltrue([local.accepter_enabled]) ? 1 : 0
-  requested_vpc_peering_connection_id = var.peering_connection_id_to_accept != null ? var.peering_connection_id_to_accept : try(aws_vpc_peering_connection.requester[0].id, null)
+  requested_vpc_peering_connection_id = var.peering_connection_id_to_accept != null ? var.peering_connection_id_to_accept : try(aws_vpc_peering_connection.requester[0].id, null) #TODO: Add use-case for getting ID from data source when accepter is same account but different region
 }
 
 resource "random_string" "test" {

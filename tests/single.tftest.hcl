@@ -1,4 +1,6 @@
 # For a functioning test please first create the VPC's in the relevant workpaces in OM2Phoenix organization
+# terraform-autotest-vpc-requester
+# terraform-autotest-vpc-accepter
 variables {
   accepter_allow_remote_vpc_dns_resolution  = true
   accepter_cidr_block                       = "10.128.0.0/16"
