@@ -1,9 +1,7 @@
 locals {
-  accepter_enabled                 = var.create && var.accepter_enabled
-  accepter_count                   = var.create && var.accepter_enabled ? 1 : 0
-  active_vpc_peering_connection_id = try(aws_vpc_peering_connection_accepter.accepter[0].id, null)
-
-  requested_vpc_peering_connection_id = var.peering_connection_id_to_accept != null ? var.peering_connection_id_to_accept : aws_vpc_peering_connection.requester[0].id
+  accepter_enabled                    = alltrue([var.create, var.accepter_enabled])
+  accepter_count                      = alltrue([local.accepter_enabled]) ? 1 : 0
+  requested_vpc_peering_connection_id = var.peering_connection_id_to_accept != null ? var.peering_connection_id_to_accept : try(aws_vpc_peering_connection.requester[0].id, null) #TODO: Add use-case for getting ID from data source when accepter is same account but different region
 }
 
 resource "random_string" "test" {
@@ -12,7 +10,7 @@ resource "random_string" "test" {
 
 # Lookup accepter's VPC so that we can reference the CIDR
 data "aws_vpc" "accepter" {
-  count = local.same_account ? 1 : local.accepter_count
+  count = local.same_account ? 0 : local.accepter_count
   id    = var.accepter_vpc_id
   tags  = var.accepter_vpc_tags
 }
@@ -79,11 +77,15 @@ resource "aws_vpc_peering_connection_accepter" "accepter" {
 
 resource "aws_vpc_peering_connection_options" "accepter" {
   count                     = local.accepter_count
-  vpc_peering_connection_id = local.active_vpc_peering_connection_id
+  vpc_peering_connection_id = local.requested_vpc_peering_connection_id
 
   accepter {
     allow_remote_vpc_dns_resolution = var.accepter_allow_remote_vpc_dns_resolution
   }
+
+  depends_on = [
+    aws_vpc_peering_connection_accepter.accepter
+  ]
 }
 
 # Create routes from accepter to requester
@@ -91,7 +93,7 @@ resource "aws_route" "accepter" {
   count                     = local.accepter_enabled ? local.accepter_aws_route_table_ids_count * local.requester_cidr_block_associations_count : 0
   route_table_id            = local.accepter_aws_route_table_ids[floor(count.index / local.requester_cidr_block_associations_count)]
   destination_cidr_block    = local.requester_cidr_block_associations[count.index % local.requester_cidr_block_associations_count]["cidr_block"]
-  vpc_peering_connection_id = local.active_vpc_peering_connection_id
+  vpc_peering_connection_id = local.requested_vpc_peering_connection_id
   depends_on = [
     data.aws_route_tables.accepter,
     aws_vpc_peering_connection_accepter.accepter,
@@ -113,4 +115,5 @@ resource "aws_security_group_rule" "accepter" {
   protocol          = "-1"
   cidr_blocks       = var.accepter_cidr_block == "" ? [data.aws_vpc.accepter[0].cidr_block] : [var.accepter_cidr_block]
   security_group_id = data.aws_security_group.accepter[0].id
+  description       = "Peering connection: ${local.requested_vpc_peering_connection_id}"
 }

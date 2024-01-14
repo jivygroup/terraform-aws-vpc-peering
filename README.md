@@ -32,10 +32,15 @@ Use pre-commit-terraform docker image to run pre-commit checks.
 These will include:
 - terraform fmt
 - terraform docs
-- terraform validate
 
 More checks can be added to the .pre-commit-config.yaml file
 
+Additional checks such as terraform test have been added in the scripts pre-commit.sh and pre-commit.ps1
+Feel free to run either.
+
+## Licensing
+
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -110,14 +115,14 @@ No modules.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >1.6.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | 5.4.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >=5.31.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.4.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.5.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.31.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.6.0 |
 
 ## Modules
 
@@ -127,26 +132,26 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_route.accepter](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/resources/route) | resource |
-| [aws_route.requester](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/resources/route) | resource |
-| [aws_security_group_rule.accepter](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/resources/security_group_rule) | resource |
-| [aws_security_group_rule.requester](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/resources/security_group_rule) | resource |
-| [aws_vpc_peering_connection.requester](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/resources/vpc_peering_connection) | resource |
-| [aws_vpc_peering_connection_accepter.accepter](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/resources/vpc_peering_connection_accepter) | resource |
-| [aws_vpc_peering_connection_options.accepter](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/resources/vpc_peering_connection_options) | resource |
-| [aws_vpc_peering_connection_options.requester](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/resources/vpc_peering_connection_options) | resource |
+| [aws_route.accepter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
+| [aws_route.requester](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
+| [aws_security_group_rule.accepter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.requester](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_vpc_peering_connection.requester](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_peering_connection) | resource |
+| [aws_vpc_peering_connection_accepter.accepter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_peering_connection_accepter) | resource |
+| [aws_vpc_peering_connection_options.accepter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_peering_connection_options) | resource |
+| [aws_vpc_peering_connection_options.requester](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_peering_connection_options) | resource |
 | [random_string.test](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
-| [aws_route_table.requester](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/data-sources/route_table) | data source |
-| [aws_route_tables.accepter](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/data-sources/route_tables) | data source |
-| [aws_route_tables.accepter_default_rts](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/data-sources/route_tables) | data source |
-| [aws_route_tables.requester](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/data-sources/route_tables) | data source |
-| [aws_route_tables.requester_default_rts](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/data-sources/route_tables) | data source |
-| [aws_security_group.accepter](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/data-sources/security_group) | data source |
-| [aws_security_group.requester](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/data-sources/security_group) | data source |
-| [aws_subnets.accepter](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/data-sources/subnets) | data source |
-| [aws_subnets.requester](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/data-sources/subnets) | data source |
-| [aws_vpc.accepter](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/data-sources/vpc) | data source |
-| [aws_vpc.requester](https://registry.terraform.io/providers/hashicorp/aws/5.4.0/docs/data-sources/vpc) | data source |
+| [aws_route_table.requester](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route_table) | data source |
+| [aws_route_tables.accepter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route_tables) | data source |
+| [aws_route_tables.accepter_default_rts](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route_tables) | data source |
+| [aws_route_tables.requester](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route_tables) | data source |
+| [aws_route_tables.requester_default_rts](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route_tables) | data source |
+| [aws_security_group.accepter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/security_group) | data source |
+| [aws_security_group.requester](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/security_group) | data source |
+| [aws_subnets.accepter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
+| [aws_subnets.requester](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
+| [aws_vpc.accepter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
+| [aws_vpc.requester](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
 
 ## Inputs
 
@@ -169,7 +174,7 @@ No modules.
 | <a name="input_create_timeout"></a> [create\_timeout](#input\_create\_timeout) | VPC peering connection create timeout. For more details, see https://www.terraform.io/docs/configuration/resources.html#operation-timeouts | `string` | `"30m"` | no |
 | <a name="input_delete_timeout"></a> [delete\_timeout](#input\_delete\_timeout) | VPC peering connection delete timeout. For more details, see https://www.terraform.io/docs/configuration/resources.html#operation-timeouts | `string` | `"5m"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the peering connection | `string` | n/a | yes |
-| <a name="input_open_local_security_group_rule"></a> [open\_local\_security\_group\_rule](#input\_open\_local\_security\_group\_rule) | Define whether or not to inject the required security group rule into the local Phoenix security group. If not then this rule should be added in the calling module directly to the Phoenix SG | `bool` | `false` | no |
+| <a name="input_open_local_security_group_rule"></a> [open\_local\_security\_group\_rule](#input\_open\_local\_security\_group\_rule) | Define whether or not to inject the required security group rule into the local security group defined by the variables accepter\_security\_group\_name and requester\_security\_group\_name. If not then this rule should be added in the calling module directly to the required SG | `bool` | `false` | no |
 | <a name="input_peering_connection_id_to_accept"></a> [peering\_connection\_id\_to\_accept](#input\_peering\_connection\_id\_to\_accept) | ID of the VPC Peering connection to accept. Only in-use for accepter-only workspaces. | `string` | `null` | no |
 | <a name="input_requester_allow_remote_vpc_dns_resolution"></a> [requester\_allow\_remote\_vpc\_dns\_resolution](#input\_requester\_allow\_remote\_vpc\_dns\_resolution) | Allow requester VPC to resolve public DNS hostnames to private IP addresses when queried from instances in the accepter VPC | `bool` | `true` | no |
 | <a name="input_requester_cidr_block"></a> [requester\_cidr\_block](#input\_requester\_cidr\_block) | The CIDR block of the requester that will be used in accepter | `string` | `""` | no |
@@ -186,8 +191,10 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_accept_status"></a> [accept\_status](#output\_accept\_status) | Requester VPC peering connection request status |
+| <a name="output_accepter_accept_status"></a> [accepter\_accept\_status](#output\_accepter\_accept\_status) | Requester VPC peering connection request status |
+| <a name="output_accepter_peering_connection_id"></a> [accepter\_peering\_connection\_id](#output\_accepter\_peering\_connection\_id) | ID of the peering connection |
 | <a name="output_accepter_subnet_route_table_map"></a> [accepter\_subnet\_route\_table\_map](#output\_accepter\_subnet\_route\_table\_map) | Map of accepter VPC subnet IDs to route table IDs |
-| <a name="output_peering_connection_id"></a> [peering\_connection\_id](#output\_peering\_connection\_id) | ID of the peering connection |
+| <a name="output_requester_accept_status"></a> [requester\_accept\_status](#output\_requester\_accept\_status) | Requester VPC peering connection request status |
 | <a name="output_requester_cidr"></a> [requester\_cidr](#output\_requester\_cidr) | CIRD of the peering connection |
+| <a name="output_requester_peering_connection_id"></a> [requester\_peering\_connection\_id](#output\_requester\_peering\_connection\_id) | ID of the peering connection |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
