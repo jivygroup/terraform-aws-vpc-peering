@@ -1,11 +1,9 @@
 terraform {
-  required_version = ">1.6.0"
-
+  required_version = ">1.7.0"
   required_providers {
-
     aws = {
       source  = "hashicorp/aws"
-      version = "5.4.0"
+      version = "5.40.0"
     }
   }
 }
@@ -41,7 +39,7 @@ provider "aws" {
 
 module "vpc" {
   source  = "app.terraform.io/TOMS/vpc/aws"
-  version = "0.1.1"
+  version = "0.8.0"
 
   az_primary            = "a"
   az_secondary          = "b"
@@ -53,10 +51,6 @@ module "vpc" {
   name                  = "om2-phoenixpoc-vpc"
   public_hosted_zone_id = ""
   cidr_prefix           = "10.250"
-
-  additional_vpc_tags = {
-    testing = "vpc-peering"
-  }
 }
 
 resource "aws_security_group" "peering" {
