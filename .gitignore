@@ -33,8 +33,7 @@ override.tf.json
 .terraformrc
 terraform.rc
 examples/**/.terraform.lock.hcl
-**/creds.*
-**/credentials.*
 .terraform
 
+# Ignore anything related to credentials
 **/cred*
